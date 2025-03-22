@@ -19,7 +19,7 @@ const llm = new ChatOpenAI({
 
 
 const accountSid = process.env.TWILIO_SID;
-authToken = process.env.TWILIO_AUTH_TOKEN;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const twilioClient = twilio(
     accountSid, authToken
@@ -44,7 +44,7 @@ app.post('/api/message', async (req, res) => {
             from: 'whatsapp:+19379071099',
             to: userId,
         });
-        
+
     } else if (channel === 'email') {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
