@@ -38,7 +38,7 @@ app.post('/api/message', async (req, res) => {
     if (channel === 'whatsapp') {
         await twilioClient.messages.create({
             body: text,
-            from 'whatsapp:+19379071099',
+            from: 'whatsapp:+19379071099',
             to: userId,
         });
     } else if (channel === 'email') {
