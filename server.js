@@ -17,9 +17,12 @@ const llm = new ChatOpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
+
+const accountSid = process.env.TWILIO_SID;
+authToken = process.env.TWILIO_AUTH_TOKEN;
+
 const twilioClient = twilio(
-    process.env.TWILIO_SID,
-    process.env.TWILIO_AUTH_TOKEN
+    accountSid, authToken
 );
 
 const transporter = nodemailer.createTransport({
@@ -36,11 +39,12 @@ app.post('/api/message', async (req, res) => {
     const text = reply.content;
 
     if (channel === 'whatsapp') {
-        await twilioClient.messages.create({
+        const message = await twilioClient.messages.create({
             body: text,
             from: 'whatsapp:+19379071099',
             to: userId,
         });
+        
     } else if (channel === 'email') {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
